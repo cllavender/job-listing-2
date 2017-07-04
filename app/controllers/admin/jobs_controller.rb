@@ -32,7 +32,8 @@ class Admin::JobsController < ApplicationController
   def update
     @job = Job.find(params[:id])
     if @job.update(job_params)
-      redirect_to admin_jobs_path,warning: "Updated a job!"
+      flash[:warning] = "Update a job！"
+      redirect_to admin_jobs_path
     else
       render :edit
     end
@@ -48,6 +49,20 @@ class Admin::JobsController < ApplicationController
     if !current_user.admin?
       redirect_to jobs_path,alert: "You are not admin"
     end
+  end
+
+  def publish
+    @job = Job.find(params[:id])
+
+    @job.publish!
+    redirect_to :back
+  end
+
+  def hide
+    @job = Job.find(params[:id])
+
+    @job.hide!
+    redirect_to :back
   end
 
   private
