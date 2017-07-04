@@ -1,0 +1,7 @@
+<h1>Submit resume to <%= @job.title %></h1>
+
+<%= simple_form_for [@job,@resume] do |f|  %>
+  <%= f.input :content %>
+  <%= f.input :attachment %>
+  <%= f.submit "Submit" %>
+<% end %>
